@@ -22,5 +22,5 @@ try:
                 print ('IP: %s' % result['ip_str'])
                 print (result['data'])
                 print ('')
-except shodan.APIError, e:
+except shodan.APIError as e:
         print ('Error: %s' % e)
