@@ -5,7 +5,7 @@
 # imports
 try: import shodan
 except: exit('please run pip or pip3 install shodan then try running this again')
-try: import * from configs  # get api key from gitignore file configs.py
+try: from configs import *  # get api key from gitignore file configs.py
 except: exit('please add a configs.py file with apikey var in same directory')
 
 # global class init
