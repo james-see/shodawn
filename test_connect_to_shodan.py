@@ -17,10 +17,10 @@ try:
         results = api.search('apache country:CA')
 
         # Show the results
-        print 'Results found: %s' % results['total']
+        print ('Results found: %s' % results['total'])
         for result in results['matches']:
-                print 'IP: %s' % result['ip_str']
-                print result['data']
-                print ''
+                print ('IP: %s' % result['ip_str'])
+                print (result['data'])
+                print ('')
 except shodan.APIError, e:
-        print 'Error: %s' % e
+        print ('Error: %s' % e)
