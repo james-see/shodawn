@@ -9,7 +9,9 @@ inspiration
 requirements
 ^^^^^^^^^^^^
 python 3+ - no more coddling those who haven't upgraded, stop whining.  
+
 pip package shodan via ``sudo pip3 install shodan`` 
+
 pip package redis via ``sudo pip3 install redis`` 
 
 place configs.py file with a variable called apikey that is your shodan key into the same directory you clone this to.
