@@ -1,6 +1,7 @@
 # What: This script gets the total counts for REDIS port open per country code
 # Author: James Campbell
-# Date: 3 JAN 2016
+# Date: 3 JAN 2017
+# Updated: 7 JAN 2017
 print("       .__               .___                    ")
 print("  _____|  |__   ____   __| _/____ __  _  ______  ")
 print(" /  ___/  |  \ /  _ \ / __ |\__  \\\ \/ \/ /    \ ")
@@ -26,6 +27,7 @@ except: exit('please add a configs.py file with apikey var in same directory')
 # global class init
 api = shodan.Shodan(apikey)
 
+# sensible default country is Canada (blame canada)
 countrycodedefault = 'CA'
 countrycodecustom = input('What country code? [default CA]: ')
 if countrycodecustom:
@@ -39,15 +41,18 @@ try:
 except shodan.APIError as e:
         print ('Error: %s' % e)
 
+# if we got results, let's investigate them further...
 if int(results['total']) > 0:
     defaultanswer = 'y'
     customanswer = input("Do you want to check all results for open access? [Y/n]: ")
+    # sensible default is yes
     if customanswer:
         if customanswer == 'Y':
             customanswer = 'y'
         defaultanswer = customanswer
     if defaultanswer == 'y':
         i = 0
+        # for each item we only need the ip address, but let's also print other info as well
         for item in results['matches']:
             openredis = redis.Redis(host=item['ip_str'], port=6379, timeout=30)
             try: ponger = openredis.ping()
@@ -55,7 +60,7 @@ if int(results['total']) > 0:
             if not ponger:
                 continue
             else:
-                print('ip address: {}'.format(item['ip_str']))
+                print('ip address: {}, '.format(item['ip_str']))
                 i = i + 1
     else:
         exit('thanks for playing version 0.11')
