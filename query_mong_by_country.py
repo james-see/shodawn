@@ -24,4 +24,4 @@ try:
 except shodan.APIError as e:
         print ('Error: %s' % e)
 
-exit('successfully executed version 0.01')
+exit('successfully executed version 0.11')
