@@ -14,13 +14,9 @@ api = shodan.Shodan(apikey)
 # Wrap the request in a try/ except block to catch errors
 try:
         # Search Shodan
-        results = api.search('apache country:CA')
+        results = api.count('apache country:CA')
 
         # Show the results
-        print ('Results found: %s' % results['total'])
-        for result in results['matches']:
-                print ('IP: %s' % result['ip_str'])
-                print (result['data'])
-                print ('')
+        print ('Success. Results found for test count query, apache users in Canada: %s' % results['total'])
 except shodan.APIError as e:
         print ('Error: %s' % e)
