@@ -54,13 +54,13 @@ if int(results['total']) > 0:
         i = 0
         # for each item we only need the ip address, but let's also print other info as well
         for item in results['matches']:
-            openredis = redis.Redis(host=item['ip_str'], port=6379, timeout=30)
+            openredis = redis.Redis(host=item['ip_str'], port=6379, socket_timeout=30)
             try: ponger = openredis.ping()
             except: continue
             if not ponger:
                 continue
             else:
-                print('ip address: {}, '.format(item['ip_str']))
+                print('ip address: {}, org: {}, hostname(s): {}'.format(item['ip_str'], item['org'], item['hostnames']))
                 i = i + 1
     else:
         exit('thanks for playing version 0.11')

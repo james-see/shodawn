@@ -36,5 +36,28 @@ try:
     print ('Results found: %s' % results['total'])
 except shodan.APIError as e:
         print ('Error: %s' % e)
-
+# if we got results, let's investigate them further...
+if int(results['total']) > 0:
+    defaultanswer = 'y'
+    customanswer = input("Do you want to check all results for open access (not working yet for mongo)? [Y/n]: ")
+    # sensible default is yes
+    if customanswer:
+        if customanswer == 'Y':
+            customanswer = 'y'
+        defaultanswer = customanswer
+    if defaultanswer == 'y':
+        i = 0
+        # for each item we only need the ip address, but let's also print other info as well
+        for item in results['matches']:
+            openredis = redis.Redis(host=item['ip_str'], port=6379, socket_timeout=30)
+            try: ponger = openredis.ping()
+            except: continue
+            if not ponger:
+                continue
+            else:
+                print('ip address: {}, org: {}, hostname(s): {}'.format(item['ip_str'], item['org'], item['hostnames']))
+                i = i + 1
+    else:
+        exit('thanks for playing version 0.11')
+print("total open to the world: {}".format(i))
 exit('successfully executed version 0.11')
