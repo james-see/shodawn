@@ -54,7 +54,7 @@ if int(results['total']) > 0:
         i = 0
         # for each item we only need the ip address, but let's also print other info as well
         for item in results['matches']:
-            openredis = redis.Redis(host=item['ip_str'], port=6379, socket_timeout=30)
+            openredis = redis.Redis(host=item['ip_str'], port=6379, socket_timeout=5)
             try: ponger = openredis.ping()
             except: continue
             if not ponger:
@@ -64,5 +64,8 @@ if int(results['total']) > 0:
                 i = i + 1
     else:
         exit('thanks for playing version 0.11')
-print("total open to the world: {}".format(i))
-exit('successfully executed version 0.11')
+print("REDIS report for country {}: ".format(countrycodedefault))
+print("=============="*2)
+print("total found in shodan: {}".format(results['total']))
+print("total open to the world (no authentication at all): {}".format(i))
+exit('successfully executed version 0.15')
